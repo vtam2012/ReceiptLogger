@@ -3,6 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 
+import ApolloClient, { gql } from "apollo-boost";
+import { ApolloProvider, Query } from "react-apollo";
+
+const client = new ApolloClient({
+  uri: "/.netlify/functions/graphql"
+});
+
 class LambdaDemo extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +29,8 @@ class LambdaDemo extends Component {
     const { loading, msg } = this.state;
 
     return (
-      <React.Fragment>
-        <Navbar />  
+      <ApolloProvider client={client}>
+        <Navbar /> 
         <p>
           <button onClick={this.handleClick('hello')}>
             {loading ? 'Loading...' : 'Call Lambda'}
@@ -33,8 +40,18 @@ class LambdaDemo extends Component {
           </button>
           <br />
           <span>{msg}</span>
+            <Query
+              query={gql`
+                {
+                  hello
+                }
+              `}
+            >
+              {({ data }) =>
+                <div>A greeting from the server: {data.hello}</div>}
+            </Query>
         </p>
-      </React.Fragment>
+      </ApolloProvider>
     );
   }
 }
