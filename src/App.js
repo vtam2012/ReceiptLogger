@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 
 import ApolloClient, { gql } from "apollo-boost";
 import { ApolloProvider, Query } from "react-apollo";
