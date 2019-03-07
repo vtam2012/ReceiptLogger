@@ -1,15 +1,14 @@
 import { ApolloServer, gql } from "apollo-server-lambda";
-import { HelloWorldSchema, HelloWorldQueryResolvers } from "./graphql/hello-world";
-import { GraphQLTestSchema, GraphQLTestQueryResolvers } from "./graphql/graphql-test";
+import Users from './graphql/users';
+import Receipts from './graphql/receipts';
 
-const resolvers = {
-    ...HelloWorldQueryResolvers,
-    ...GraphQLTestQueryResolvers,
-};
+const typeDef = gql`
+  type Query
+`;
 
 const server = new ApolloServer({
-  typeDefs: [HelloWorldSchema, GraphQLTestSchema],
-  resolvers,
+  typeDefs: [typeDef, Users.typeDef, Receipts.typeDef],
+  resolvers: [Users.resolvers, Receipts.resolvers],
   introspection: true,
   playground: true,
 });

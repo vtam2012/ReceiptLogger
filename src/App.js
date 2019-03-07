@@ -30,27 +30,45 @@ class LambdaDemo extends Component {
 
     return (
       <ApolloProvider client={client}>
-        <Navbar /> 
-        <p>
-          <button onClick={this.handleClick('hello')}>
-            {loading ? 'Loading...' : 'Call Lambda'}
-          </button>
-          <button onClick={this.handleClick('async-chuck-norris')}>
-            {loading ? 'Loading...' : 'Call Async Lambda'}
-          </button>
-          <br />
-          <span>{msg}</span>
-            <Query
-              query={gql`
-                {
-                  hello
+      <Navbar /> 
+      <p>
+        {/* <button onClick={this.handleClick('hello')}>
+          {loading ? 'Loading...' : 'Call Lambda'}
+        </button>
+        <button onClick={this.handleClick('async-chuck-norris')}>
+          {loading ? 'Loading...' : 'Call Async Lambda'}
+        </button> */}
+        <br />
+        <span>{msg}</span>
+          <Query
+            query={gql`
+              {
+                users {
+                  name
                 }
-              `}
-            >
-              {({ data }) =>
-                <div>A greeting from the server: {data.hello}</div>}
-            </Query>
-        </p>
+              }
+            `}
+          >
+            {({ data }) =>
+              <div>A greeting from the server: {
+                data && data.users && data.users.map((user) => (<div>{user.name}</div>))}</div>}
+          </Query>
+
+          <Query
+            query={gql`
+              {
+                receipts {
+                  id
+                  title
+                }
+              }
+            `}
+          >
+            {({ data }) =>
+              <div>Receipts {
+                data && data.receipts && data.receipts.map((user) => (<div>{user.title}</div>))}</div>}
+          </Query>
+      </p>
       </ApolloProvider>
     );
   }
