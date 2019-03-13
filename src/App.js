@@ -45,13 +45,14 @@ class LambdaDemo extends Component {
               {
                 users {
                   name
+                  email
                 }
               }
             `}
           >
             {({ data }) =>
               <div>A greeting from the server: {
-                data && data.users && data.users.map((user) => (<div>{user.name}</div>))}</div>}
+                data && data.users && data.users.map((user) => (<div>{user.name} {user.email}</div>))}</div>}
           </Query>
 
           <Query
