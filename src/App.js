@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
+import Login from './components/Login/Login';
 
 import ApolloClient, { gql } from "apollo-boost";
 import { ApolloProvider, Query } from "react-apollo";
@@ -85,6 +86,7 @@ class App extends Component {
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <LambdaDemo />
+          <Login />
         </header>
       </div>
     );
